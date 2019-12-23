@@ -19,7 +19,7 @@ dependencies {
 }
 
 detekt {
-    toolVersion = "1.0.0-RC14"
+    toolVersion = "1.3.0"
     input = files("src/main/kotlin", "src/test/kotlin")
 
     config = files(projectDir.resolve("detekt-config.yml"))
@@ -28,10 +28,6 @@ detekt {
     baseline = projectDir.resolve("detekt-baseline.xml")
 
     failFast = false
-}
-
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
-    exclude(".*/resources/.*,.*/build/.*")
 }
 
 tasks.withType<Wrapper> {
