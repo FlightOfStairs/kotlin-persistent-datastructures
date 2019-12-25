@@ -1,5 +1,6 @@
 package org.flightofstairs.kpd
 
+import io.kotlintest.matchers.collections.shouldBeSorted
 import io.kotlintest.matchers.types.shouldBeSameInstanceAs
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.AnnotationSpec
@@ -69,5 +70,15 @@ class TreeSetTest : AnnotationSpec() {
         val nonUpdatedSet = range.fold(originalSet) { set, element -> set.add(element) }
 
         originalSet shouldBeSameInstanceAs nonUpdatedSet
+    }
+
+    @Test
+    fun `iterator is sorted`() {
+        val shuffledRange = IntRange(1, 100).shuffled(Random(0))
+
+        val set = shuffledRange.fold(TreeSet<Int>(compareBy { it })) { map, element -> map.add(element) }
+
+        set.toList().size shouldBe 100
+        set.toList().shouldBeSorted()
     }
 }
